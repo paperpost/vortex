@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="18.3" version="18.3" Modules="update" RootPath="." Language="en_GB" Id="{2DFD8097-207C-44C7-ACB0-ACC2C63E29A7}">
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;aiu-ue.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;aiu-ue_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.UpdaterEditorComponent">
+    <ROW Section="General" Key="MessageTitle" Value="Notification Title" ValueLocId="-"/>
+    <ROW Section="General" Key="MessageBody" Value="Notification Message" ValueLocId="-"/>
+    <ROW Section="General" Key="MessageExpirationDate" Value="22178" ValueLocId="-"/>
+    <ATTRIBUTE name="OutputFileName" value="updater.txt"/>
+    <ATTRIBUTE name="OutputFolder" value="."/>
+  </COMPONENT>
+</DOCUMENT>

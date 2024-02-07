@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "vortex.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "hotfolder setuser \"C:\\HPOD\\testing\\hot\" --identity AAD",
+      "workingDirectory": "C:\\HPOD\\testing\\vortex"
+    }
+  }
+}

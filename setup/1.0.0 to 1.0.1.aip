@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="18.3" version="18.3" Modules="patch" RootPath="." Language="en" Id="{E3922570-B5EB-492E-86AB-EEF3CE319484}">
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="MspValidation.aip" Path="&lt;AI_FRAGS&gt;MspValidation.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MspPropertiesComponent">
+    <ROW Name="AllowProductCodeMismatches" Value="1"/>
+    <ROW Name="AllowProductVersionMajorMismatches" Value="1"/>
+    <ROW Name="ListOfTargetProductCodes" Value="*"/>
+    <ROW Name="PatchSourceList" Value="PatchSourceList"/>
+    <ROW Name="SEQUENCE_DATA_GENERATION_DISABLED" Value="1"/>
+    <ATTRIBUTE name="Author" value="Paperpost"/>
+    <ATTRIBUTE name="Comments" value="This patch contains the logic and data required to modify Vortex."/>
+    <ATTRIBUTE name="KeepPCPFile" value="false"/>
+    <ATTRIBUTE name="Subject" value="Vortex"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PatchMetadataComponent">
+    <ROW Property="AllowRemoval" Value="0"/>
+    <ROW Property="DisplayName" Value="Your Patch display name"/>
+    <ROW Property="Classification" Value="Update"/>
+    <ROW Property="Description" Value="Your Patch description"/>
+    <ROW Property="TargetProductName" Value="Your Product"/>
+    <ROW Property="MoreInfoURL" Value="http://www.example.com"/>
+  </COMPONENT>
+</DOCUMENT>

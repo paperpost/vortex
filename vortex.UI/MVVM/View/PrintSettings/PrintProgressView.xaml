@@ -1,0 +1,16 @@
+﻿<Window x:Class="vortex.UI.MVVM.View.PrintProgressView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:vortex.UI.MVVM.View"
+        mc:Ignorable="d"
+        Title="Submitting" Height="119.594" Width="338.02" ShowInTaskbar="False" ResizeMode="NoResize" Top="100" Left="100" Topmost="True" WindowStyle="ToolWindow">
+	<Grid>
+		<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtProgress" TextAlignment="Center"
+            FontFamily="Segoe UI" FontSize="30pt" Margin="82,19,82,17" Width="181" Height="56" ScrollViewer.VerticalScrollBarVisibility="Hidden"><Run Text="0%"/></TextBlock>
+		<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="txtStatus"
+	  FontFamily="Segoe UI" Margin="0,0,-0.333,0" RenderTransformOrigin="-0.922,0.308" Width="333" Height="28" Text="Initialising..." Foreground="#FFB1B1B1"/>
+		<ProgressBar x:Name="pbProgress" HorizontalAlignment="Left" Height="16" Margin="0,75,-0.333,0" VerticalAlignment="Top" Width="333"/>
+	</Grid>
+</Window>

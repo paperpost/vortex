@@ -1,0 +1,28 @@
+{
+	"Local": {
+		"GRPCPort": 30051,
+		"ConfigRefreshInterval": 300,
+		"LogRelay": true,
+		"ShowProgress": true,
+		"ShowPrintSettings": true
+	},
+	"Instance": "dev",
+	"APIEndpoint": "https://api-uk.h-pod.co.uk/v3",
+	"ConfigRefreshTimeoutSeconds": 3600,
+	"LastConfigRefresh": "0001-01-01T00:00:00",
+	"MainInstance": false,
+	"LogServer": false,
+	"IdentityProviders": [
+		{
+			"Authority": "https://login.microsoftonline.com/common/v2.0",
+			"DiscoveryEndpoint": "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration",
+			"ClientId": "63773c0d-1714-4ec0-bae8-66c27105916b",
+			"ClientSecret": "",
+			"IssuerRegex": "^https://login.microsoftonline.com/.+/",
+			"Name": "AAD",
+			"Scope": "openid profile offline_access",
+			"RedirectUri": "https://vortex.client"
+		}
+	],
+	"HotFolders": []
+}

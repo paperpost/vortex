@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MainViews\HotFolder.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\HotFolder.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Controls\IdentityProvider.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\HotFolders.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\IdentityProviders.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainViews\HotFolder.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Theme\MenuButtonTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Controls\HotFolder.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Controls\IdentityProvider.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HotFolders.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\IdentityProviders.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

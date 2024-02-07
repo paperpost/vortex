@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Core" Version="2.46.3" />
+    <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\vortex.API\vortex.API.csproj" />
+    <ProjectReference Include="..\vortex.Common\vortex.Common.csproj" />
+    <ProjectReference Include="..\vortex.GRPC\vortex.GRPC.csproj" />
+    <ProjectReference Include="..\vortex.State\vortex.State.csproj" />
+  </ItemGroup>
+
+</Project>

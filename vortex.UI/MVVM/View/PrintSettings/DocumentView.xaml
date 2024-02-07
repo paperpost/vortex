@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="vortex.UI.MVVM.View.DocumentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:vortex.UI.MVVM.View"
+             mc:Ignorable="d" 
+            d:DesignHeight="796" d:DesignWidth="651">
+	<Grid Background="White">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="200"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Column="0" Background="#f8f8f8"/>
+		<Image Grid.Column="0" Name="imgPreview"
+					Margin="10,10,10,10"
+					Stretch="Uniform"
+					Source="{Binding CurrentPage, Mode=OneWay}"/>
+
+		<StackPanel Grid.Column="1" Orientation="Vertical">
+			<Label Foreground="Black" FontSize="12pt" Content="Stationery"/>
+			<ComboBox ItemsSource="{Binding Path=StationeryOptions, Mode=OneWay}"
+					DisplayMemberPath="Name"
+					SelectedValuePath="Guid"
+					SelectedValue="{Binding Path=Stationery}"
+					Name="ddlStationery"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					Height="24"
+					Width="180"/>
+			<Label Foreground="Black" FontSize="12pt" Content="Signature" Margin="0,20,0,0"/>
+			<ComboBox ItemsSource="{Binding Path=SignatureOptions, Mode=OneWay}"
+					DisplayMemberPath="Name"
+					SelectedValuePath="Name"
+					SelectedValue="{Binding Path=Signature}"
+					Name="ddlSignature"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					Height="24"
+					Width="180"/>
+			<Label Foreground="Black" FontSize="12pt" Content="Address Elements" Margin="0,20,0,0"/>
+			<!--<ListBox Name="lbElements" ItemsSource="{Binding PreflightAddressElements}" Height="115">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<CheckBox Name="cbElement"
+								Content="{Binding ElementName}"
+								Checked="{Binding Selected}" Margin="0,5,0,0"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>-->
+		</StackPanel>
+		<!--<Rectangle ToolTip="Preflight Failed" Visibility="{Binding PreflightFailed}" x:Name="imgPreflightFailed" Grid.Column="1" Fill="Red" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="18" Margin="5,5,5,5" Width="16"/>-->
+	</Grid>
+</UserControl>

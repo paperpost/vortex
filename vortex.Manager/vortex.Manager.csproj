@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\vortex.GRPC\vortex.GRPC.csproj" />
+    <ProjectReference Include="..\vortex.State\vortex.State.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Logo.png" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66555FF2-E527-43C0-AE10-EB62A6C03D02}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>vortex.UI</RootNamespace>
+    <AssemblyName>vortex.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\HPOD\src\vortex\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>vortex.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>1A5976C903DD5B40DE58F2155B22AB3FEF96C248</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>vortex.UI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SautinSoft.PdfFocus">
+      <HintPath>..\..\client\External\PDF\PDF Focus .Net Full (6.6.9.11)\Bin\Net 4.6.1\x64\SautinSoft.PdfFocus.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MVVM\View\CopyLettersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\DeliveryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\DocumentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\InsertsAttachmentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\PrintProgressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemTray.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Background.cs" />
+    <Compile Include="Core\Blob.cs" />
+    <Compile Include="Core\CallerEnricher.cs" />
+    <Compile Include="Core\IconAnimator.cs" />
+    <Compile Include="Core\ObservableObject.cs" />
+    <Compile Include="Core\Preflight.cs" />
+    <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="Core\StateStorage.cs" />
+    <Compile Include="Core\Submission.cs" />
+    <Compile Include="MVVM\ViewModel\CopyLettersViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\DeliveryViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\DocumentViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\InsertsAttachmentsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\PrintOptionsViewModel.cs" />
+    <Compile Include="MVVM\View\CopyLettersView.xaml.cs">
+      <DependentUpon>CopyLettersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\DeliveryView.xaml.cs">
+      <DependentUpon>DeliveryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\DocumentView.xaml.cs">
+      <DependentUpon>DocumentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\InsertsAttachmentsView.xaml.cs">
+      <DependentUpon>InsertsAttachmentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\PrintProgressView.xaml.cs">
+      <DependentUpon>PrintProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrintPreview\Offline.cs" />
+    <Compile Include="ServerComms.cs" />
+    <Compile Include="SystemTray.xaml.cs">
+      <DependentUpon>SystemTray.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MVVM\View\PrintOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\MenuButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MVVM\View\PrintOptions.xaml.cs">
+      <DependentUpon>PrintOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="vortex.UI_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\vortex.API\vortex.API.csproj">
+      <Project>{ff6c8314-ae25-4728-a476-efd3b8c67b6c}</Project>
+      <Name>vortex.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vortex.Common\vortex.Common.csproj">
+      <Project>{3736e682-57c8-4dd9-9616-7269159a2a7a}</Project>
+      <Name>vortex.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vortex.GRPC\vortex.GRPC.csproj">
+      <Project>{785d9bf1-72bc-4d2f-af33-29b5ddccb542}</Project>
+      <Name>vortex.GRPC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\vortex.State\vortex.State.csproj">
+      <Project>{ae85dfd9-e103-4d23-a672-8de62d3d278e}</Project>
+      <Name>vortex.State</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentWPF">
+      <Version>0.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Grpc">
+      <Version>2.44.0</Version>
+    </PackageReference>
+    <PackageReference Include="IdentityModel.OidcClient">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Extensions.Logging">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.Console">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.File">
+      <Version>5.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+    <Folder Include="MVVM\Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PrintOptionsLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\vortex-0.png" />
+    <Resource Include="Icons\vortex-1.png" />
+    <Resource Include="Icons\vortex-2.png" />
+    <Resource Include="Icons\vortex-3.png" />
+    <Resource Include="Icons\vortex-4.png" />
+    <Resource Include="Icons\vortex-5.png" />
+    <Resource Include="Icons\vortex-6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\vortex-0-light.png" />
+    <Resource Include="Icons\vortex-1-light.png" />
+    <Resource Include="Icons\vortex-2-light.png" />
+    <Resource Include="Icons\vortex-3-light.png" />
+    <Resource Include="Icons\vortex-4-light.png" />
+    <Resource Include="Icons\vortex-5-light.png" />
+    <Resource Include="Icons\vortex-6-light.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

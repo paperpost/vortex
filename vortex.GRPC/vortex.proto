@@ -1,0 +1,190 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "vortex.GRPC";
+
+package vortex;
+
+service Vortex {
+	rpc RefreshConfiguration (RefreshConfigurationRequest) returns (RefreshConfigurationResponse);
+	rpc SubmitPDF (SubmitPDFRequest) returns (SubmitPDFResponse);
+	rpc SubmitStatus (SubmitStatusRequest) returns (SubmitStatusResponse);
+	rpc LogMessage (LogItem) returns (LogItemResponse);
+	rpc EnableLogs (EnableLogsRequest) returns (EnableLogsResponse);
+	rpc DisableLogs (DisableLogsRequest) returns (DisableLogsResponse);
+	rpc AddHotFolder (AddHotFolderRequest) returns (AddHotFolderResponse);
+	rpc RemoveHotFolder(RemoveHotFolderRequest) returns (RemoveHotFolderResponse);
+	rpc GetHotFolders (GetHotFoldersRequest) returns (GetHotFoldersResponse);
+	rpc GetIdentityProviders (GetIdentityProvidersRequest) returns (GetIdentityProvidersResponse);
+	rpc AddIdentityProvider (AddIdentityProviderRequest) returns (AddIdentityProviderResponse);
+	rpc RemoveIdentityProvider (RemoveIdentityProviderRequest) returns (RemoveIdentityProviderResponse);
+	rpc PatchHotFolder(PatchHotFolderRequest) returns (PatchHotFolderResponse);
+	rpc SetHotFolderUser(SetHotFolderUserRequest) returns (SetHotFolderUserResponse);
+	rpc ValidateUser(ValidateUserRequest) returns (ValidateUserResponse);
+	rpc GetAccountConfiguration(GetAccountConfigurationRequest) returns (GetAccountConfigurationResponse);
+	rpc SetConfig(SetConfigRequest) returns (SetConfigResponse);
+	rpc GetConfig(GetConfigRequest) returns (GetConfigResponse);
+}
+
+message RefreshConfigurationRequest {
+	string trigger = 1;		// Description of the trigger (schedule,systemtray,commandline)
+	string token = 2;
+}
+
+message RefreshConfigurationResponse {
+	string status = 1;		// Was the operation successful?
+	string config = 2;
+	bool success = 3;
+}
+
+message SubmitPDFRequest {
+	string path = 1;		// Submit this PDF - this command will be used by vortex.PDF and by the hotfolder client
+	string settings = 2;
+	string userguid = 3;
+}
+
+message SubmitPDFResponse {
+	string status = 1;
+	string jobid = 2;
+}
+
+message SubmitStatusRequest {
+	string jobid=1;			// vortex.UI's progress window will use this to query the vortex.Server for submission progress
+}
+
+message SubmitStatusResponse {
+	string status=1;		// A JSON description of the progress
+	double percent=2;
+}
+
+message LogItem {
+	string time=1;
+	string message=2;
+	string source=3;		// "server", "client-jobguid", etc
+}
+
+message LogItemResponse {
+	bool success=1;
+}
+
+// AddHotFolder
+message AddHotFolderRequest {
+	string hotfolder=1;
+}
+
+message AddHotFolderResponse {
+	bool success=1;
+}
+
+// GetHotFolders
+message GetHotFoldersRequest {
+}
+
+message GetHotFoldersResponse {
+	string hotfolders=1;
+}
+
+// Remove hot folder
+message RemoveHotFolderRequest {
+	string path=1;
+}
+
+message RemoveHotFolderResponse {
+	bool success=1;
+}
+
+// Patch hot folder
+message PatchHotFolderRequest {
+	string path=1;
+	string patch=2;
+}
+
+message PatchHotFolderResponse {
+	bool success=1;
+}
+
+// Set hot folder user
+message SetHotFolderUserRequest {
+	string path=1;
+	string user=2;
+}
+
+message SetHotFolderUserResponse {
+	bool success=1;
+	string error=2;
+}
+
+// List identity providers
+message GetIdentityProvidersRequest {
+}
+
+message GetIdentityProvidersResponse {
+	string identityproviders=1;
+}
+
+// Add identity provider
+message AddIdentityProviderRequest {
+	string name=1;
+	string settings=2;
+}
+
+message AddIdentityProviderResponse {
+	bool success=1;
+}
+
+// Remove identity provider
+message RemoveIdentityProviderRequest {
+	string name=1;
+}
+
+message RemoveIdentityProviderResponse {
+	bool success=1;
+}
+
+// Enable logs
+message EnableLogsRequest {
+}
+
+message EnableLogsResponse {
+}
+
+// Disable logs
+message DisableLogsRequest {
+}
+
+message DisableLogsResponse {
+}
+
+// Get Account Configuration
+message GetAccountConfigurationRequest {
+	string user=1;
+}
+
+message GetAccountConfigurationResponse {
+	bool success=1;
+	string config=2;
+}
+
+message SetConfigRequest {
+	string config=1;
+}
+
+message SetConfigResponse {
+	bool success=1;
+}
+
+message GetConfigRequest {
+}
+
+message GetConfigResponse {
+	string config=1;
+}
+
+// Validate user
+message ValidateUserRequest {
+	string user=1;
+}
+
+message ValidateUserResponse {
+	bool success=1;
+	string user=2;
+}

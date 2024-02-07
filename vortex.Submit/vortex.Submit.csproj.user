@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>--instance mba --path "C:\Users\Jeff\Downloads\Wise_1.pdf" --account api-test --email jeff.belcher%40paperpost.co.uk --password Hand5fr33 --validate true --invalidAbort true --printoptions "C:\Users\Jeff\Downloads\Wise_1.json"</StartArguments>
+  </PropertyGroup>
+</Project>

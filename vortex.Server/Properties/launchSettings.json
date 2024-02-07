@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "vortex.Server": {
+      "commandName": "Project"
+    }
+  }
+}

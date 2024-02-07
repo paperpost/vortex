@@ -1,0 +1,10 @@
+/.vs/
+bin/
+obj/
+.vs/
+*.exe
+*.pdb
+*.pfx
+/packages/
+/setup/vortex-cache/
+/setup/Setup/

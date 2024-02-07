@@ -1,0 +1,26 @@
+﻿    <Application x:Class="vortex.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:vortex"
+             xmlns:viewModel="clr-namespace:vortex.UI.MVVM.ViewModel"
+             xmlns:view="clr-namespace:vortex.UI.MVVM.View"
+             StartupUri="SystemTray.xaml">
+    <Application.Resources>
+        
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+
+				<ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+
+			<DataTemplate DataType="{x:Type viewModel:DocumentViewModel}">
+				<view:DocumentView/>
+			</DataTemplate>
+
+			<DataTemplate DataType="{x:Type viewModel:DeliveryViewModel}">
+				<view:DeliveryView/>
+			</DataTemplate>
+		</ResourceDictionary>
+    </Application.Resources>
+</Application>

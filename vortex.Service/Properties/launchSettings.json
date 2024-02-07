@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "vortex.Service": {
+      "commandName": "Project",
+      "commandLineArgs": "install --instance vtxdev",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": "true"
+    }
+  }
+}

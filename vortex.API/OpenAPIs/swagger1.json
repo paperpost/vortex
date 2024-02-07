@@ -1,0 +1,3133 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "H-POD Internal API",
+    "version": "v3"
+  },
+  "servers": [
+    {
+      "url": "https://api-dev.h-pod.co.uk/v3",
+      "description": "H-POD API"
+    }
+  ],
+  "paths": {
+    "/account/jobstoreplay": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicAccountGetJobsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicAccountGetJobsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicAccountGetJobsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicAccountGetJobsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/account/{accountGuid}": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "accountGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/account/{accountGuid}/manageable": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "accountGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/account/bylogin/{accountLogin}": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "accountLogin",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "tags": [
+          "Authenticate"
+        ],
+        "summary": "Acquire a token",
+        "description": "Submit credentials and receive a JWT bearer token for accessing the API.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authenticate/keys": {
+      "get": {
+        "tags": [
+          "Authenticate"
+        ],
+        "summary": "Get JWKS for the keys used to sign API tokens",
+        "description": "The JWKS details returned can be used to validate any current API authentication tokens",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticateJWKS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blob/{blobGuid}/thumbnail": {
+      "get": {
+        "tags": [
+          "Blob"
+        ],
+        "operationId": "GenerateThumbnails",
+        "parameters": [
+          {
+            "name": "blobGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BlobThumbnail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blob/flow": {
+      "post": {
+        "tags": [
+          "Blob"
+        ],
+        "operationId": "UploadBlobFlowPart",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "flowChunkNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowTotalChunks": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowChunkSize": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowTotalSize": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowIdentifier": {
+                    "type": "string"
+                  },
+                  "flowFilename": {
+                    "type": "string"
+                  },
+                  "flowRelativePath": {
+                    "type": "string"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "flowChunkNumber": {
+                  "style": "form"
+                },
+                "flowTotalChunks": {
+                  "style": "form"
+                },
+                "flowChunkSize": {
+                  "style": "form"
+                },
+                "flowTotalSize": {
+                  "style": "form"
+                },
+                "flowIdentifier": {
+                  "style": "form"
+                },
+                "flowFilename": {
+                  "style": "form"
+                },
+                "flowRelativePath": {
+                  "style": "form"
+                },
+                "file": {
+                  "style": "form"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "flowChunkNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowTotalChunks": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowChunkSize": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowTotalSize": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "flowIdentifier": {
+                    "type": "string"
+                  },
+                  "flowFilename": {
+                    "type": "string"
+                  },
+                  "flowRelativePath": {
+                    "type": "string"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "flowChunkNumber": {
+                  "style": "form"
+                },
+                "flowTotalChunks": {
+                  "style": "form"
+                },
+                "flowChunkSize": {
+                  "style": "form"
+                },
+                "flowTotalSize": {
+                  "style": "form"
+                },
+                "flowIdentifier": {
+                  "style": "form"
+                },
+                "flowFilename": {
+                  "style": "form"
+                },
+                "flowRelativePath": {
+                  "style": "form"
+                },
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/blob/{blobGuid}": {
+      "get": {
+        "tags": [
+          "Blob"
+        ],
+        "summary": "Download a blob",
+        "description": "Download a file stored in the H-POD system, given its GUID",
+        "operationId": "GetBlob",
+        "parameters": [
+          {
+            "name": "blobGuid",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "401": {
+            "description": "Unauthorised"
+          }
+        }
+      }
+    },
+    "/blob/{instance}/{blobGuid}": {
+      "get": {
+        "tags": [
+          "Blob"
+        ],
+        "operationId": "GetBlobAnonymous",
+        "parameters": [
+          {
+            "name": "blobGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "instance",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/blob": {
+      "post": {
+        "tags": [
+          "Blob"
+        ],
+        "operationId": "UploadBlob",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlobBlobPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobBlobPutResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/framework/push/{frameworkJobGuid}": {
+      "get": {
+        "tags": [
+          "Framework"
+        ],
+        "parameters": [
+          {
+            "name": "frameworkJobGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/insert": {
+      "post": {
+        "tags": [
+          "Insert"
+        ],
+        "operationId": "CreateInsert",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/job/status/{jobGuid}": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "Get Status",
+        "description": "Gets the processing status of a job and any packs identified in that job",
+        "operationId": "JobStatus",
+        "parameters": [
+          {
+            "name": "jobGuid",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicJobStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailmerge/list/{accountGuid}": {
+      "get": {
+        "tags": [
+          "MailMerge"
+        ],
+        "parameters": [
+          {
+            "name": "accountGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicMailMerge"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicMailMerge"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicMailMerge"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mailmerge/{mailMergeGuid}": {
+      "get": {
+        "tags": [
+          "MailMerge"
+        ],
+        "parameters": [
+          {
+            "name": "mailMergeGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailMerge"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailMerge"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailMerge"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MailMerge"
+        ],
+        "parameters": [
+          {
+            "name": "mailMergeGUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/mailmerge": {
+      "post": {
+        "tags": [
+          "MailMerge"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicMailMerge"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicMailMerge"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicMailMerge"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicMailMerge"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/openid/list": {
+      "get": {
+        "tags": [
+          "OpenID"
+        ],
+        "operationId": "GetOpenIDProviders",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenID"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenID"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OpenID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pack/{packGuid}": {
+      "get": {
+        "tags": [
+          "Pack"
+        ],
+        "summary": "Get Pack",
+        "description": "Returns full details of a pack, including references to the PDF for each version of the pack, the pack's status transitions and the recipient and delivery details.\r\n\r\nSample request:\r\n            \r\n    GET /pack/12345678-1234-1234-1234-123456789012",
+        "operationId": "GetPackStatus",
+        "parameters": [
+          {
+            "name": "packGuid",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the pack",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicPackStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorised"
+          },
+          "400": {
+            "description": "Bad Request - pack GUID not valid or other malformed request"
+          }
+        }
+      }
+    },
+    "/preflight": {
+      "post": {
+        "tags": [
+          "Preflight"
+        ],
+        "summary": "Initialise preflight request",
+        "description": "Requests a preflight run of a file through the system",
+        "operationId": "InitPreflightRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicPreflightRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicPreflightResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Preflight"
+        ],
+        "summary": "Retrieve preflight results",
+        "description": "Returns the results of a preflight analysis of a document",
+        "operationId": "PreflightResult",
+        "parameters": [
+          {
+            "name": "taskGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskPreflight"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/preflight/mergefields/{blobGuid}": {
+      "get": {
+        "tags": [
+          "Preflight"
+        ],
+        "operationId": "PreFlightMergeFields",
+        "parameters": [
+          {
+            "name": "blobGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskPreflightMergeFields"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/print/configuration": {
+      "get": {
+        "tags": [
+          "Print"
+        ],
+        "summary": "Get Configuration",
+        "description": "Retrieves the full set of available settings for use by client software looking to generate a submission to the H-POD system.",
+        "operationId": "GetPrintConfiguration",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientConfiguration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/print/init": {
+      "post": {
+        "tags": [
+          "Print"
+        ],
+        "summary": "Initialise",
+        "description": "This endpoint initialises a print job submission, allows you to specify the print options you want to use for the submission,\r\nand returns you a job GUID which you will use with your subsequent calls to provide the document data and signal that the job is ready for processing.",
+        "operationId": "InitialiseSubmission",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicPrintOptions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicPrintInitResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/print/docpart": {
+      "post": {
+        "tags": [
+          "Print"
+        ],
+        "summary": "Document Part",
+        "description": "Provides a part of a document to be included with the submission.  A part can be no larger than 250KB in size.",
+        "operationId": "AddDocumentPart",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicDocumentPart"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/print/commit": {
+      "post": {
+        "tags": [
+          "Print"
+        ],
+        "summary": "Commit",
+        "description": "Indicates that all document data has been provided and that the job should be committed to the H-POD system.",
+        "operationId": "CommitSubmission",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicPrintCommitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicPrintCommitResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resource/byname/{resourceName}": {
+      "get": {
+        "tags": [
+          "Resource"
+        ],
+        "operationId": "GetResourceByName",
+        "parameters": [
+          {
+            "name": "resourceName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/resource/byname/{resourceName}/b64": {
+      "get": {
+        "tags": [
+          "Resource"
+        ],
+        "operationId": "GetResourceByNameBase64",
+        "parameters": [
+          {
+            "name": "resourceName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/task": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "operationId": "GetTaskStatus",
+        "parameters": [
+          {
+            "name": "taskGUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenant/list": {
+      "get": {
+        "tags": [
+          "Tenant"
+        ],
+        "operationId": "GetTenants",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicTenant"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicTenant"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicTenant"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenant/pools": {
+      "get": {
+        "tags": [
+          "Tenant"
+        ],
+        "operationId": "GetTenantPools",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicPool"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicPool"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicPool"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/packstatusnotifier": {
+      "post": {
+        "tags": [
+          "Test"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TestPackStatus"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthenticateJWKS": {
+        "type": "object",
+        "properties": {
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuthenticateTokenSigningKey"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticateRequest": {
+        "type": "object",
+        "properties": {
+          "instance": {
+            "type": "string",
+            "description": "This should be set to the instance of H-POD you're authenticating against.  Please request this value from your H-POD provider.",
+            "nullable": true
+          },
+          "accountLogin": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticateResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticateTokenSigningKey": {
+        "type": "object",
+        "properties": {
+          "use": {
+            "type": "string",
+            "nullable": true
+          },
+          "alg": {
+            "type": "string",
+            "nullable": true
+          },
+          "kty": {
+            "type": "string",
+            "nullable": true
+          },
+          "e": {
+            "type": "string",
+            "nullable": true
+          },
+          "n": {
+            "type": "string",
+            "nullable": true
+          },
+          "kid": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BlobBlobPutRequest": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string",
+            "nullable": true
+          },
+          "filename": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BlobBlobPutResponse": {
+        "type": "object",
+        "properties": {
+          "blobGuid": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Upload a file"
+      },
+      "BlobThumbnail": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "storageBlobGUID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfiguration": {
+        "type": "object",
+        "properties": {
+          "papers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationBillablePrintOption"
+            },
+            "nullable": true
+          },
+          "envelopes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationBillablePrintOption"
+            },
+            "nullable": true
+          },
+          "packmodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationPrintOption"
+            },
+            "nullable": true
+          },
+          "duplex": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationPrintOption"
+            },
+            "nullable": true
+          },
+          "delivery": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationDeliveryMethod"
+            },
+            "nullable": true
+          },
+          "ink": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationBillablePrintOption"
+            },
+            "nullable": true
+          },
+          "serviceCharge": {
+            "$ref": "#/components/schemas/ClientConfigurationPricing"
+          },
+          "inserts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationInsert"
+            },
+            "nullable": true
+          },
+          "stationery": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationStationeryType"
+            },
+            "nullable": true
+          },
+          "notifications": {
+            "$ref": "#/components/schemas/ClientConfigurationNotifications"
+          },
+          "accountSettings": {
+            "$ref": "#/components/schemas/ClientConfigurationAccountSettings"
+          },
+          "defaultPrintSettings": {
+            "$ref": "#/components/schemas/ClientConfigurationDefaultPrintSettings"
+          },
+          "extractionZones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationExtractionZone"
+            },
+            "nullable": true
+          },
+          "signatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationSignature"
+            },
+            "nullable": true
+          },
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationTemplate"
+            },
+            "nullable": true
+          },
+          "preflight": {
+            "$ref": "#/components/schemas/ClientConfigurationPreflightSettings"
+          },
+          "hotFolderFileTypes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationAccountSettings": {
+        "type": "object",
+        "properties": {
+          "workingDays": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cutoffTimeUTC": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullDuplexBilling": {
+            "type": "boolean"
+          },
+          "electronicDeliveryEnabled": {
+            "type": "boolean"
+          },
+          "offlinePrintingEnabled": {
+            "type": "boolean"
+          },
+          "configRefreshTimeoutSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hotFolderFileTypes": {
+            "type": "string",
+            "nullable": true
+          },
+          "printServerOverride": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationArea": {
+        "type": "object",
+        "properties": {
+          "ulx": {
+            "type": "number",
+            "format": "double"
+          },
+          "uly": {
+            "type": "number",
+            "format": "double"
+          },
+          "lrx": {
+            "type": "number",
+            "format": "double"
+          },
+          "lry": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationBillablePrintOption": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "$ref": "#/components/schemas/ClientConfigurationPricing"
+          },
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationDefaultElectronicDelivery": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "timeoutAction": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeoutHours": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationDefaultPrintSettings": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "nullable": true
+          },
+          "paper": {
+            "type": "string",
+            "nullable": true
+          },
+          "envelope": {
+            "type": "string",
+            "nullable": true
+          },
+          "ink": {
+            "type": "string",
+            "nullable": true
+          },
+          "duplex": {
+            "type": "string",
+            "nullable": true
+          },
+          "packMode": {
+            "type": "string",
+            "nullable": true
+          },
+          "delivery": {
+            "type": "string",
+            "nullable": true
+          },
+          "stationery": {
+            "type": "string",
+            "nullable": true
+          },
+          "showPrintPreview": {
+            "type": "boolean"
+          },
+          "showPrintSettings": {
+            "type": "boolean"
+          },
+          "electronicDelivery": {
+            "$ref": "#/components/schemas/ClientConfigurationDefaultElectronicDelivery"
+          },
+          "inserts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationLinkedInsert"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationDeliveryBand": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "width": {
+            "$ref": "#/components/schemas/ClientConfigurationRange"
+          },
+          "height": {
+            "$ref": "#/components/schemas/ClientConfigurationRange"
+          },
+          "thickness": {
+            "$ref": "#/components/schemas/ClientConfigurationRange"
+          },
+          "weight": {
+            "$ref": "#/components/schemas/ClientConfigurationRange"
+          },
+          "daysToDeliver": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "daysOfOperation": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "localProduction": {
+            "type": "boolean"
+          },
+          "cost": {
+            "$ref": "#/components/schemas/ClientConfigurationPricing"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationDeliveryMethod": {
+        "type": "object",
+        "properties": {
+          "bands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationDeliveryBand"
+            },
+            "nullable": true
+          },
+          "cost": {
+            "$ref": "#/components/schemas/ClientConfigurationPricing"
+          },
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationExtractionZone": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "regex": {
+            "type": "string",
+            "nullable": true
+          },
+          "preflight": {
+            "type": "boolean"
+          },
+          "area": {
+            "$ref": "#/components/schemas/ClientConfigurationArea"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationInsert": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "insertType": {
+            "type": "string",
+            "nullable": true
+          },
+          "collection": {
+            "type": "string",
+            "nullable": true
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationInsertVersion"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationInsertDimensions": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "thickness": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationInsertVersion": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicationDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Thumbnail"
+            },
+            "nullable": true
+          },
+          "cost": {
+            "$ref": "#/components/schemas/ClientConfigurationPricing"
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/ClientConfigurationInsertDimensions"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationLinkedInsert": {
+        "type": "object",
+        "properties": {
+          "versionGuid": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationNotifications": {
+        "type": "object",
+        "properties": {
+          "emailSuccess": {
+            "type": "boolean"
+          },
+          "emailInformation": {
+            "type": "boolean"
+          },
+          "emailError": {
+            "type": "boolean"
+          },
+          "emailWarning": {
+            "type": "boolean"
+          },
+          "emailActionRequired": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationPreflightSettings": {
+        "type": "object",
+        "properties": {
+          "maximumDocumentSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationPricing": {
+        "type": "object",
+        "properties": {
+          "net": {
+            "type": "number",
+            "format": "double"
+          },
+          "vat": {
+            "type": "number",
+            "format": "double"
+          },
+          "co2": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationPrintOption": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationRange": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "max": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationSignature": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "blobGuid": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationStationeryType": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "front": {
+            "$ref": "#/components/schemas/Thumbnail"
+          },
+          "continuation": {
+            "$ref": "#/components/schemas/Thumbnail"
+          },
+          "suffix": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Thumbnail"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationTemplate": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "localProduction": {
+            "type": "boolean"
+          },
+          "permitElectronicDelivery": {
+            "type": "boolean"
+          },
+          "stationery": {
+            "type": "string",
+            "nullable": true
+          },
+          "trigger": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplateTrigger"
+          },
+          "paper": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplatePrintOption"
+          },
+          "envelope": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplatePrintOption"
+          },
+          "delivery": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplatePrintOption"
+          },
+          "packMode": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplatePrintOption"
+          },
+          "duplex": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplatePrintOption"
+          },
+          "ink": {
+            "$ref": "#/components/schemas/ClientConfigurationTemplatePrintOption"
+          },
+          "inserts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientConfigurationLinkedInsert"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationTemplatePrintOption": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientConfigurationTemplateTrigger": {
+        "type": "object",
+        "properties": {
+          "zoneGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InsertCreateRequest": {
+        "type": "object",
+        "properties": {
+          "accountLogin": {
+            "type": "string",
+            "nullable": true
+          },
+          "insert": {
+            "$ref": "#/components/schemas/PublicInsert"
+          },
+          "overwrite": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MailMerge": {
+        "type": "object",
+        "properties": {
+          "mailMergeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mailMergeGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailMergeField"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MailMergeField": {
+        "type": "object",
+        "properties": {
+          "mailMergeFieldGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "packData": {
+            "type": "string",
+            "nullable": true
+          },
+          "fieldName": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fontName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fontSize": {
+            "type": "number",
+            "format": "double"
+          },
+          "concatSeparator": {
+            "type": "string",
+            "nullable": true
+          },
+          "prefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "mandatory": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OpenID": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "commonId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "discoveryURL": {
+            "type": "string",
+            "nullable": true
+          },
+          "purpose": {
+            "type": "string",
+            "nullable": true
+          },
+          "loginLogoURL": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientId": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientSecret": {
+            "type": "string",
+            "nullable": true
+          },
+          "scope": {
+            "type": "string",
+            "nullable": true
+          },
+          "redirectUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailClaim": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupClaim": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameClaim": {
+            "type": "string",
+            "nullable": true
+          },
+          "issuerRegex": {
+            "type": "string",
+            "nullable": true
+          },
+          "issuers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "allowAllIssuers": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicAccountGetJobsRequest": {
+        "type": "object",
+        "properties": {
+          "accountLogin": {
+            "type": "string",
+            "nullable": true
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recurse": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicDocumentPart": {
+        "type": "object",
+        "properties": {
+          "jobGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fileIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "partIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fileType": {
+            "type": "string",
+            "nullable": true
+          },
+          "filename": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "string",
+            "nullable": true
+          },
+          "startByteIndex": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicInsert": {
+        "type": "object",
+        "properties": {
+          "accountInsertId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountInsertGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/PublicInsertInsertType"
+          },
+          "collection": {
+            "type": "string",
+            "nullable": true
+          },
+          "deliveryRestriction": {
+            "$ref": "#/components/schemas/PublicInsertDeliveryRestrictions"
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicInsertVersion"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicInsertDeliveryRestrictions": {
+        "enum": [
+          "PostalOnly",
+          "ElectronicOnly",
+          "None"
+        ],
+        "type": "string"
+      },
+      "PublicInsertInsertType": {
+        "enum": [
+          "Printed",
+          "PrePrinted",
+          "Dynamic"
+        ],
+        "type": "string"
+      },
+      "PublicInsertVersion": {
+        "type": "object",
+        "properties": {
+          "accountInsertVersionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountInsertVersionGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "brand": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pickable": {
+            "type": "boolean"
+          },
+          "width": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "thickness": {
+            "type": "number",
+            "format": "double"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sides": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pdf": {
+            "$ref": "#/components/schemas/StorageBlob"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicJobStatus": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "submittedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startedprocessingAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "processedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "packs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPackStatus"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicMailMerge": {
+        "type": "object",
+        "properties": {
+          "ownerAccountGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mailMergeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mailMergeGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailMergeField"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPackRecipient": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstLineOfAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "postcode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPackStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/PublicPackStatusStatuses"
+          },
+          "guid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "releasedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/PublicPackRecipient"
+          },
+          "packIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "holdReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "failureReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPackVersion"
+            },
+            "nullable": true
+          },
+          "statusTransitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPackStatusTransition"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPackStatusStatuses": {
+        "enum": [
+          "processing",
+          "released",
+          "held",
+          "cancelled",
+          "compiledIntoPrintDownload",
+          "returned",
+          "posted",
+          "delivered",
+          "localProduction",
+          "userActionRequired",
+          "acknowledgedActioned",
+          "failed",
+          "confirmedDownloadedForPrinting",
+          "sentElectronically",
+          "electronicDeliveryRead",
+          "failureAcknowledged",
+          "printed",
+          "duplicate",
+          "rejected"
+        ],
+        "type": "string"
+      },
+      "PublicPackStatusTransition": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/PublicPackStatusStatuses"
+          },
+          "transitionDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPackVersion": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "blob": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPool": {
+        "type": "object",
+        "properties": {
+          "accountPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "queueName": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestedSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPreflightRequest": {
+        "type": "object",
+        "properties": {
+          "isMerge": {
+            "type": "boolean"
+          },
+          "mergeGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "blobs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "printOptions": {
+            "$ref": "#/components/schemas/PublicPrintOptions"
+          },
+          "findPostalAddress": {
+            "type": "boolean"
+          },
+          "taskGUID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPreflightResponse": {
+        "type": "object",
+        "properties": {
+          "taskGUID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintAddressValidationResult": {
+        "enum": [
+          "NotValidated",
+          "GutterBreach",
+          "InsufficientData",
+          "PostcodeValidationFailed",
+          "Valid",
+          "SubmissionTooLarge"
+        ],
+        "type": "string"
+      },
+      "PublicPrintCommitRequest": {
+        "type": "object",
+        "properties": {
+          "jobGUID": {
+            "type": "string",
+            "description": "The GUID of the submission you're committing",
+            "format": "uuid"
+          },
+          "extractAddress": {
+            "type": "boolean",
+            "description": "Indicates whether the system should scrape the address from the first page of the PDF and validate it, returning validation information directly in the response to this call"
+          },
+          "abortOnValidationFailure": {
+            "type": "boolean",
+            "description": "If initial address validation fails, indicate whether the commit should still be completed and the document committed for processing"
+          },
+          "exportReady": {
+            "type": "boolean",
+            "description": "Indicates whether the PDF being supplied requires no further processing or analysis by H-POD and that it should be moved directly to the \"ready to export\" stage"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPrintRecipient"
+            },
+            "description": "If exportReady is true and so the address will not be extracted from the submitted PDF by H-POD, the recipient data should be specified here.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintCommitResponse": {
+        "type": "object",
+        "properties": {
+          "addressValidationResult": {
+            "$ref": "#/components/schemas/PublicPrintAddressValidationResult"
+          },
+          "validatedRecipient": {
+            "$ref": "#/components/schemas/PublicPrintRecipient"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintCopyTo": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "delayUntil": {
+            "type": "string",
+            "nullable": true
+          },
+          "coveringMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "includeAttachments": {
+            "type": "boolean"
+          },
+          "includeInserts": {
+            "type": "boolean"
+          },
+          "deliveryOverride": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintEDeliveryOptions": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "onTimeout": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeoutDays": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintGUIDOption": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "guid": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintInitResponse": {
+        "type": "object",
+        "properties": {
+          "jobGuid": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintOptions": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "delayUntil": {
+            "type": "string",
+            "nullable": true
+          },
+          "generateKey": {
+            "type": "boolean"
+          },
+          "clientId": {
+            "type": "string",
+            "nullable": true
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "holdPacks": {
+            "type": "boolean"
+          },
+          "transferTo": {
+            "$ref": "#/components/schemas/PublicPrintTransferTo"
+          },
+          "manualAddressOverride": {
+            "type": "string",
+            "nullable": true
+          },
+          "electronicDelivery": {
+            "$ref": "#/components/schemas/PublicPrintEDeliveryOptions"
+          },
+          "paper": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "envelope": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "stationery": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "ink": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "delivery": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "packMode": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          },
+          "duplex": {
+            "$ref": "#/components/schemas/PublicPrintGUIDOption"
+          },
+          "inserts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPrintGUIDOption"
+            },
+            "nullable": true
+          },
+          "passthrough": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPrintPassthrough"
+            },
+            "nullable": true
+          },
+          "specialHandling": {
+            "type": "string",
+            "nullable": true
+          },
+          "copyTo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicPrintCopyTo"
+            },
+            "nullable": true
+          },
+          "includeAttachmentsForMainLetter": {
+            "type": "boolean"
+          },
+          "includeInsertsForMainLetter": {
+            "type": "boolean"
+          },
+          "splitSettings": {
+            "$ref": "#/components/schemas/SubmissionSettingsSplitSettings"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintPassthrough": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintRecipient": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "addressType": {
+            "$ref": "#/components/schemas/PublicPrintRecipientRecipientType"
+          },
+          "postcode": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "forename": {
+            "type": "string",
+            "nullable": true
+          },
+          "surname": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicPrintRecipientRecipientType": {
+        "enum": [
+          "Postal",
+          "Email",
+          "SMS"
+        ],
+        "type": "string"
+      },
+      "PublicPrintTransferTo": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountLogin": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicTenant": {
+        "type": "object",
+        "properties": {
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Rect": {
+        "type": "object",
+        "properties": {
+          "llx": {
+            "type": "number",
+            "format": "double"
+          },
+          "lly": {
+            "type": "number",
+            "format": "double"
+          },
+          "urx": {
+            "type": "number",
+            "format": "double"
+          },
+          "ury": {
+            "type": "number",
+            "format": "double"
+          },
+          "w": {
+            "type": "number",
+            "format": "double"
+          },
+          "h": {
+            "type": "number",
+            "format": "double"
+          },
+          "isEmpty": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StorageBlob": {
+        "type": "object",
+        "properties": {
+          "storageBlobId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "storageBlobGUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "filename": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "localPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "container": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubmissionSettingsSplitSettings": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/SubmissionSettingsSplitSettingsSplitMode"
+          },
+          "pageCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "word": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubmissionSettingsSplitSettingsSplitMode": {
+        "enum": [
+          "Address",
+          "PageCount",
+          "Word"
+        ],
+        "type": "string"
+      },
+      "TaskPreflight": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "failureReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskPreflightPage"
+            },
+            "nullable": true
+          },
+          "postalAddressValidationResult": {
+            "$ref": "#/components/schemas/PublicPrintAddressValidationResult"
+          },
+          "postalRecipient": {
+            "$ref": "#/components/schemas/PublicPrintRecipient"
+          },
+          "zones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskPreflightPreflightZone"
+            },
+            "nullable": true
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskPreflightRegion"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskPreflightMergeFields": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "merges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskPreflightMergeFieldsMerge"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskPreflightMergeFieldsMerge": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskPreflightPage": {
+        "type": "object",
+        "properties": {
+          "thumb": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "w": {
+            "type": "number",
+            "format": "float"
+          },
+          "h": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskPreflightPreflightZone": {
+        "type": "object",
+        "properties": {
+          "guid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "mandatory": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskPreflightRegion": {
+        "type": "object",
+        "properties": {
+          "area": {
+            "$ref": "#/components/schemas/Rect"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TaskPreflightRegionType"
+          },
+          "movable": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskPreflightRegionType": {
+        "enum": [
+          "Neutral",
+          "Failure",
+          "Success"
+        ],
+        "type": "string"
+      },
+      "TaskStatus": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "guid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "result": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateQueued": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateScheduled": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateCompleted": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "runningTimeSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "started": {
+            "type": "boolean"
+          },
+          "complete": {
+            "type": "boolean"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "showOnUI": {
+            "type": "boolean"
+          },
+          "progress": {
+            "$ref": "#/components/schemas/TaskStatusTaskProgress"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskStatusTaskProgress": {
+        "type": "object",
+        "properties": {
+          "progress": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestPackStatus": {
+        "type": "object",
+        "properties": {
+          "jobGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "packGuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "identifier": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Thumbnail": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "blobGUID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Blob",
+      "description": "Endpoints for uploading and downloading files (blobs) within the H-POD system"
+    },
+    {
+      "name": "Preflight",
+      "description": "Endpoints for initiating and retrieving the results of a preflight request"
+    },
+    {
+      "name": "Authenticate",
+      "description": "Authenticate and receive a token for accessing the API"
+    },
+    {
+      "name": "Job",
+      "description": "Endpoints for querying submitted jobs in the H-POD system"
+    },
+    {
+      "name": "Pack",
+      "description": "Operations on packs.  A pack is a single letter to a single recipient within the H-POD system."
+    },
+    {
+      "name": "Print",
+      "description": "Endpoints for initiating, submitting and committing a print job to the H-POD system.\r\n\r\nA submission will require the following steps as a minimum\r\n\r\n1. A call to Initialise to create the submission, specify the processing options and acquire a job GUID\r\n2. One or more calls to Document Part to provide the document for submission\r\n3. A call to Commit to finalise the submission and indicate further settings for processsing\r\n\r\nInitialising a submission will involve populating a number of settings, the available options for which can\r\nbe retried by a call to the Get Configuration endpoint."
+    }
+  ]
+}
